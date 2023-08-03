@@ -10,6 +10,7 @@ export const InfoRow = ({ label, value }: { label: string; value: string }) => {
     </div>
   );
 };
+
 export const ProfileInformation = ({
   userData,
 }: {

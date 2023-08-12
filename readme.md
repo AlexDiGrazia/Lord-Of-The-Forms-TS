@@ -95,11 +95,11 @@ Phone Input
 
 - [x] Create a `FunctionalPhoneInput` component to clean up code
 - [] Create a `ClassPhoneInput` component to clean up code
-- [] The telephone input should work EXACTLY like on the example site
-- [] Typing in the max characters on one input should move to the next input
-- [] Deleting should go to the previous input as necessary
-- [] Inputs should be tracked with a state that looks like this ["", "", "", ""]
-- [] A User cannot type any non-numeric characters into a telephone input
+- [x] The telephone input should work EXACTLY like on the example site
+- [x] Typing in the max characters on one input should move to the next input
+- [x] Deleting should go to the previous input as necessary
+- [x] Inputs should be tracked with a state that looks like this ["", "", "", ""]
+- [x] A User cannot type any non-numeric characters into a telephone input
 
 City Information
 

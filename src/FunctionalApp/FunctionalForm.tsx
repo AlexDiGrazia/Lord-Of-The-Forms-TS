@@ -1,10 +1,4 @@
-import {
-  ChangeEventHandler,
-  Dispatch,
-  SetStateAction,
-  useRef,
-  useState,
-} from "react";
+import { Dispatch, SetStateAction } from "react";
 import { ErrorMessage } from "../ErrorMessage";
 import {
   doesNotContainNumbers,
@@ -17,7 +11,21 @@ import { allCities } from "../utils/all-cities";
 import { FunctionalPhoneInput } from "./FunctionalPhoneInput";
 import { PhoneNumberInput } from "./FunctionalApp";
 
-// export type PhoneNumberInput = [string, string, string, string];
+type FunctionalFormProps = {
+  clearForm: () => void;
+  isSubmitted: boolean;
+  setIsSubmitted: Dispatch<SetStateAction<boolean>>;
+  firstName: string;
+  setFirstName: Dispatch<SetStateAction<string>>;
+  lastName: string;
+  setLastName: Dispatch<SetStateAction<string>>;
+  email: string;
+  setEmail: Dispatch<SetStateAction<string>>;
+  city: string;
+  setCity: Dispatch<SetStateAction<string>>;
+  phoneNumber: PhoneNumberInput;
+  setPhoneNumber: Dispatch<SetStateAction<PhoneNumberInput>>;
+};
 
 const firstNameErrorMessage = "First name must be at least 2 characters long";
 const lastNameErrorMessage = "Last name must be at least 2 characters long";
@@ -26,18 +34,20 @@ const cityErrorMessage = "State is Invalid";
 const phoneNumberErrorMessage = "Invalid Phone Number";
 
 export const FunctionalForm = ({
+  clearForm,
+  isSubmitted,
+  setIsSubmitted,
+  firstName,
+  setFirstName,
+  lastName,
+  setLastName,
+  email,
+  setEmail,
+  city,
+  setCity,
   phoneNumber,
   setPhoneNumber,
-}: {
-  phoneNumber: PhoneNumberInput;
-  setPhoneNumber: Dispatch<SetStateAction<PhoneNumberInput>>;
-}) => {
-  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
-  const [firstName, setFirstName] = useState<string>("");
-  const [lastName, setLastName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [city, setCity] = useState<string>("");
-
+}: FunctionalFormProps) => {
   const shouldShowFirstNameErrorMessage =
     isSubmitted && !isGreaterThanTwoCharacters(firstName);
   const shouldShowLastNameErrorMessage =
@@ -63,14 +73,15 @@ export const FunctionalForm = ({
     return shouldAlert;
   };
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    setIsSubmitted(true);
+    shouldAlertError() && alert("Bad Inputs");
+  };
+
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        setIsSubmitted(true);
-        shouldAlertError() && alert("Bad Inputs");
-      }}
-    >
+    <form onSubmit={handleSubmit}>
       <u>
         <h3>User Information Form</h3>
       </u>

@@ -21,7 +21,6 @@ const cityErrorMessage = "State is Invalid";
 const phoneNumberErrorMessage = "Invalid Phone Number";
 
 export const FunctionalForm = ({
-  userData,
   setUserData,
 }: {
   userData: TypeUserData | null;
@@ -39,6 +38,14 @@ export const FunctionalForm = ({
     "",
   ]);
 
+  const clearForm = () => {
+    setEmail("");
+    setFirstName("");
+    setLastName("");
+    setPhoneNumber(["", "", "", ""]);
+    setCity("");
+  };
+
   const shouldAlertError = () => {
     let shouldAlert = false;
     [
@@ -55,42 +62,24 @@ export const FunctionalForm = ({
     return shouldAlert;
   };
 
-  const shouldShowFirstNameErrorMessage =
-    shouldAlertError() && !isGreaterThanTwoCharacters(firstName);
-  const shouldShowLastNameErrorMessage =
-    shouldAlertError() && !isGreaterThanTwoCharacters(lastName);
-  const shouldShowEmailErrorMessage =
-    shouldAlertError() && !isEmailValid(email);
-  const shouldShowCityErrorMessage = shouldAlertError() && !isValidCity(city);
-  const shouldShowPhoneNumberErrorMessage =
-    shouldAlertError() && !isPhoneValid(phoneNumber);
-
-  const clearForm = () => {
-    setEmail("");
-    setFirstName("");
-    setLastName("");
-    setPhoneNumber(["", "", "", ""]);
-    setCity("");
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    shouldAlertError() && setIsSubmitted(true);
+    isSubmitted && !shouldAlertError() && setIsSubmitted(false);
+    shouldAlertError() && alert("Bad Inputs");
+    !shouldAlertError() &&
+      setUserData({
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+        phone: formatPhoneNumber(phoneNumber),
+        city: city,
+      });
+    !shouldAlertError() && clearForm();
   };
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        setIsSubmitted(true);
-        shouldAlertError() && alert("Bad Inputs");
-        !shouldAlertError() &&
-          setUserData({
-            email: email,
-            firstName: firstName,
-            lastName: lastName,
-            phone: formatPhoneNumber(phoneNumber),
-            city: city,
-          });
-
-        !shouldAlertError() && clearForm();
-      }}
-    >
+    <form onSubmit={handleSubmit}>
       <u>
         <h3>User Information Form</h3>
       </u>
@@ -109,7 +98,7 @@ export const FunctionalForm = ({
       </div>
       <ErrorMessage
         message={firstNameErrorMessage}
-        show={shouldShowFirstNameErrorMessage}
+        show={isSubmitted && !isGreaterThanTwoCharacters(firstName)}
       />
 
       {/* last name input */}
@@ -126,7 +115,7 @@ export const FunctionalForm = ({
       </div>
       <ErrorMessage
         message={lastNameErrorMessage}
-        show={shouldShowLastNameErrorMessage}
+        show={isSubmitted && !isGreaterThanTwoCharacters(lastName)}
       />
 
       {/* Email Input */}
@@ -140,7 +129,7 @@ export const FunctionalForm = ({
       </div>
       <ErrorMessage
         message={emailErrorMessage}
-        show={shouldShowEmailErrorMessage}
+        show={isSubmitted && !isEmailValid(email)}
       />
 
       {/* City Input */}
@@ -160,7 +149,7 @@ export const FunctionalForm = ({
       </div>
       <ErrorMessage
         message={cityErrorMessage}
-        show={shouldShowCityErrorMessage}
+        show={isSubmitted && !isValidCity(city)}
       />
 
       {/* Phone Input */}
@@ -170,7 +159,7 @@ export const FunctionalForm = ({
       />
       <ErrorMessage
         message={phoneNumberErrorMessage}
-        show={shouldShowPhoneNumberErrorMessage}
+        show={isSubmitted && !isPhoneValid(phoneNumber)}
       />
 
       <input type="submit" value="Submit" />

@@ -1,6 +1,13 @@
+import { TypeUserData } from "./FunctionalApp/FunctionalApp";
 import { UserInformation } from "./types";
 
-export const InfoRow = ({ label, value }: { label: string; value: string }) => {
+export const InfoRow = ({
+  label,
+  value,
+}: {
+  label: string;
+  value: string | null;
+}) => {
   return (
     <div>
       <span style={{ marginRight: 5 }}>
@@ -13,12 +20,10 @@ export const InfoRow = ({ label, value }: { label: string; value: string }) => {
 
 export const ProfileInformation = ({
   userData,
-  isSubmitted,
 }: {
-  userData: UserInformation | null;
-  isSubmitted: boolean;
+  userData: TypeUserData | null;
 }) => {
-  if (!isSubmitted || !userData) {
+  if (!userData) {
     return (
       <>
         <u>

@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { ErrorMessage } from "../ErrorMessage";
 import {
   doesNotContainNumbers,
@@ -9,23 +9,10 @@ import {
 } from "../utils/validations";
 import { allCities } from "../utils/all-cities";
 import { FunctionalPhoneInput } from "./FunctionalPhoneInput";
-import { PhoneNumberInput } from "./FunctionalApp";
+import { PhoneNumberInput, TypeUserData } from "./FunctionalApp";
+import { formatPhoneNumber } from "../utils/transformations";
 
-type FunctionalFormProps = {
-  clearForm: () => void;
-  isSubmitted: boolean;
-  setIsSubmitted: Dispatch<SetStateAction<boolean>>;
-  firstName: string;
-  setFirstName: Dispatch<SetStateAction<string>>;
-  lastName: string;
-  setLastName: Dispatch<SetStateAction<string>>;
-  email: string;
-  setEmail: Dispatch<SetStateAction<string>>;
-  city: string;
-  setCity: Dispatch<SetStateAction<string>>;
-  phoneNumber: PhoneNumberInput;
-  setPhoneNumber: Dispatch<SetStateAction<PhoneNumberInput>>;
-};
+// export type PhoneNumberInput = [string, string, string, string];
 
 const firstNameErrorMessage = "First name must be at least 2 characters long";
 const lastNameErrorMessage = "Last name must be at least 2 characters long";
@@ -34,28 +21,23 @@ const cityErrorMessage = "State is Invalid";
 const phoneNumberErrorMessage = "Invalid Phone Number";
 
 export const FunctionalForm = ({
-  clearForm,
-  isSubmitted,
-  setIsSubmitted,
-  firstName,
-  setFirstName,
-  lastName,
-  setLastName,
-  email,
-  setEmail,
-  city,
-  setCity,
-  phoneNumber,
-  setPhoneNumber,
-}: FunctionalFormProps) => {
-  const shouldShowFirstNameErrorMessage =
-    isSubmitted && !isGreaterThanTwoCharacters(firstName);
-  const shouldShowLastNameErrorMessage =
-    isSubmitted && !isGreaterThanTwoCharacters(lastName);
-  const shouldShowEmailErrorMessage = isSubmitted && !isEmailValid(email);
-  const shouldShowCityErrorMessage = isSubmitted && !isValidCity(city);
-  const shouldShowPhoneNumberErrorMessage =
-    isSubmitted && !isPhoneValid(phoneNumber);
+  userData,
+  setUserData,
+}: {
+  userData: TypeUserData | null;
+  setUserData: Dispatch<SetStateAction<TypeUserData | null>>;
+}) => {
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [city, setCity] = useState<string>("");
+  const [phoneNumber, setPhoneNumber] = useState<PhoneNumberInput>([
+    "",
+    "",
+    "",
+    "",
+  ]);
 
   const shouldAlertError = () => {
     let shouldAlert = false;
@@ -73,15 +55,42 @@ export const FunctionalForm = ({
     return shouldAlert;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const shouldShowFirstNameErrorMessage =
+    shouldAlertError() && !isGreaterThanTwoCharacters(firstName);
+  const shouldShowLastNameErrorMessage =
+    shouldAlertError() && !isGreaterThanTwoCharacters(lastName);
+  const shouldShowEmailErrorMessage =
+    shouldAlertError() && !isEmailValid(email);
+  const shouldShowCityErrorMessage = shouldAlertError() && !isValidCity(city);
+  const shouldShowPhoneNumberErrorMessage =
+    shouldAlertError() && !isPhoneValid(phoneNumber);
 
-    setIsSubmitted(true);
-    shouldAlertError() && alert("Bad Inputs");
+  const clearForm = () => {
+    setEmail("");
+    setFirstName("");
+    setLastName("");
+    setPhoneNumber(["", "", "", ""]);
+    setCity("");
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        setIsSubmitted(true);
+        shouldAlertError() && alert("Bad Inputs");
+        !shouldAlertError() &&
+          setUserData({
+            email: email,
+            firstName: firstName,
+            lastName: lastName,
+            phone: formatPhoneNumber(phoneNumber),
+            city: city,
+          });
+
+        !shouldAlertError() && clearForm();
+      }}
+    >
       <u>
         <h3>User Information Form</h3>
       </u>

@@ -1,6 +1,5 @@
 import { ChangeEventHandler, Dispatch, SetStateAction, useRef } from "react";
-
-export type PhoneNumberInput = [string, string, string, string];
+import { PhoneNumberInput } from "./FunctionalForm";
 
 export const FunctionalPhoneInput = ({
   phoneNumber,

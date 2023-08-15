@@ -76,7 +76,7 @@ Validation UI
 - [x] Under input errors should not show UNLESS the user has already tried submitting once
 - [x] Errors should go away as soon as the field is fixed, not on submit
 - [x] If a user tries to submit a form with bad inputs, an alert message will say "Bad Inputs" then the exact errors will pop up under the incorrect inputs
-- [] When a user successfully submits the form, it should update the userInformation and show the user information in the ProfileInformation Component
+- [x] When a user successfully submits the form, it should update the userInformation and show the user information in the ProfileInformation Component
 - [x] First Name should be at least 2 characters long and should not contain numbers
 - [x] Last Name should be at least 2 characters long and should not contain numbers
 - [x] Email should pass the `isEmailValid` function
@@ -87,8 +87,8 @@ Validation UI
 
 Phone Number UI
 
-- [] When you store a phone number in state it should NOT have all the `-` characters in what you are storing
-- [] Display a phone number with the format `NN-NN-NN-N`
+- [x] When you store a phone number in state it should NOT have all the `-` characters in what you are storing
+- [x] Display a phone number with the format `NN-NN-NN-N`
   - use this function in your `ProfileInformation` component to render the correct thing to the screen
 
 Phone Input
@@ -109,20 +109,20 @@ City Information
 
 Text Inputs
 
-- [] Create a `FunctionalTextInput` component that groups the label and the input together
+- [x] Create a `FunctionalTextInput` component that groups the label and the input together
 - [] Create a `ClassTextInput` component to clean up code
 
 Form
 
-- [] Page must NOT reload after submitting
-- [] ClassApp Code and FunctionalApp Code should be treated as separate apps as far as state goes
+- [x] Page must NOT reload after submitting
+- [x] ClassApp Code and FunctionalApp Code should be treated as separate apps as far as state goes
 
 Profile Information Component
 
 - You can share this between the `FunctionalApp` and the `ClassApp`
 - build a `capitalize` function in `transformations.ts` to correctly display a first and last name
 
-- [] build a `formatPhone` function in `transformations.ts` that will turn "1234567" into "12-34-56-7"
+- [x] build a `formatPhone` function in `transformations.ts` that will turn "1234567" into "12-34-56-7"
 - [] use `capitalize` and `formatPHone` in the `ProfileInformation` component in order to format things appropriately
 
 Email Validations

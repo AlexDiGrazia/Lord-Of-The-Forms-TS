@@ -1,24 +1,17 @@
 import { useState } from "react";
 import { ProfileInformation } from "../ProfileInformation";
 import { FunctionalForm } from "./FunctionalForm";
-
-export type PhoneNumberInput = [string, string, string, string];
-export type TypeUserData = {
-  email: string | null;
-  firstName: string | null;
-  lastName: string | null;
-  phone: string | null;
-  city: string | null;
-};
+import { UserInformation } from "../types";
 
 export const FunctionalApp = () => {
-  const [userData, setUserData] = useState<TypeUserData | null>(null);
+  const [userInformation, setUserInformation] =
+    useState<UserInformation | null>(null);
 
   return (
     <>
       <h2>Functional</h2>
-      <ProfileInformation userData={userData} />
-      <FunctionalForm userData={userData} setUserData={setUserData} />
+      <ProfileInformation userInformation={userInformation} />
+      <FunctionalForm setUserInformation={setUserInformation} />
     </>
   );
 };

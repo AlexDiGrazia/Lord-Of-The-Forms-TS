@@ -3,16 +3,15 @@ import { ErrorMessage } from "../ErrorMessage";
 import {
   doesNotContainNumbers,
   isEmailValid,
-  isGreaterThanTwoCharacters,
+  isAtLeastTwoCharacters,
   isPhoneValid,
   isValidCity,
 } from "../utils/validations";
 import { allCities } from "../utils/all-cities";
 import { FunctionalPhoneInput } from "./FunctionalPhoneInput";
-import { PhoneNumberInput, TypeUserData } from "./FunctionalApp";
 import { formatPhoneNumber } from "../utils/transformations";
-
-// export type PhoneNumberInput = [string, string, string, string];
+import { UserInformation } from "../types";
+import { FunctionalTextInput } from "./FunctionalTextInput";
 
 const firstNameErrorMessage = "First name must be at least 2 characters long";
 const lastNameErrorMessage = "Last name must be at least 2 characters long";
@@ -20,11 +19,12 @@ const emailErrorMessage = "Email is Invalid";
 const cityErrorMessage = "State is Invalid";
 const phoneNumberErrorMessage = "Invalid Phone Number";
 
+export type PhoneNumberInput = [string, string, string, string];
+
 export const FunctionalForm = ({
-  setUserData,
+  setUserInformation,
 }: {
-  userData: TypeUserData | null;
-  setUserData: Dispatch<SetStateAction<TypeUserData | null>>;
+  setUserInformation: Dispatch<SetStateAction<UserInformation | null>>;
 }) => {
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [firstName, setFirstName] = useState<string>("");
@@ -49,8 +49,8 @@ export const FunctionalForm = ({
   const shouldAlertError = () => {
     let shouldAlert = false;
     [
-      isGreaterThanTwoCharacters(firstName),
-      isGreaterThanTwoCharacters(lastName),
+      isAtLeastTwoCharacters(firstName),
+      isAtLeastTwoCharacters(lastName),
       isEmailValid(email),
       isValidCity(city),
       isPhoneValid(phoneNumber),
@@ -68,7 +68,7 @@ export const FunctionalForm = ({
     isSubmitted && !shouldAlertError() && setIsSubmitted(false);
     shouldAlertError() && alert("Bad Inputs");
     !shouldAlertError() &&
-      setUserData({
+      setUserInformation({
         email: email,
         firstName: firstName,
         lastName: lastName,
@@ -85,48 +85,48 @@ export const FunctionalForm = ({
       </u>
 
       {/* first name input */}
-      <div className="input-wrap">
-        <label>{"First Name"}:</label>
-        <input
-          placeholder="Bilbo"
-          onChange={(e) => {
+      <FunctionalTextInput
+        label={"First Name"}
+        inputProps={{
+          placeholder: "Bilbo",
+          onChange: (e) => {
             doesNotContainNumbers(e.target.value) &&
               setFirstName(e.target.value);
-          }}
-          value={firstName}
-        />
-      </div>
+          },
+          value: firstName,
+        }}
+      />
       <ErrorMessage
         message={firstNameErrorMessage}
-        show={isSubmitted && !isGreaterThanTwoCharacters(firstName)}
+        show={isSubmitted && !isAtLeastTwoCharacters(firstName)}
       />
 
       {/* last name input */}
-      <div className="input-wrap">
-        <label>{"Last Name"}:</label>
-        <input
-          placeholder="Baggins"
-          onChange={(e) => {
+      <FunctionalTextInput
+        label={"Last Name"}
+        inputProps={{
+          placeholder: "Baggins",
+          onChange: (e) => {
             doesNotContainNumbers(e.target.value) &&
               setLastName(e.target.value);
-          }}
-          value={lastName}
-        />
-      </div>
+          },
+          value: lastName,
+        }}
+      />
       <ErrorMessage
         message={lastNameErrorMessage}
-        show={isSubmitted && !isGreaterThanTwoCharacters(lastName)}
+        show={isSubmitted && !isAtLeastTwoCharacters(lastName)}
       />
 
       {/* Email Input */}
-      <div className="input-wrap">
-        <label>{"Email"}:</label>
-        <input
-          placeholder="bilbo-baggins@adventurehobbits.net"
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
-        />
-      </div>
+      <FunctionalTextInput
+        label={"Email"}
+        inputProps={{
+          placeholder: "bilbo-baggins@adventurehobbits.net",
+          onChange: (e) => setEmail(e.target.value),
+          value: email,
+        }}
+      />
       <ErrorMessage
         message={emailErrorMessage}
         show={isSubmitted && !isEmailValid(email)}

@@ -1,4 +1,4 @@
-import { PhoneNumberInput } from "../FunctionalApp/FunctionalPhoneInput";
+import { PhoneNumberInput } from "../FunctionalApp/FunctionalForm";
 
 export const capitalize = () => {
   // todo: build this function

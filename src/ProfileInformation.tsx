@@ -1,4 +1,3 @@
-import { TypeUserData } from "./FunctionalApp/FunctionalApp";
 import { UserInformation } from "./types";
 
 export const InfoRow = ({
@@ -19,11 +18,11 @@ export const InfoRow = ({
 };
 
 export const ProfileInformation = ({
-  userData,
+  userInformation,
 }: {
-  userData: TypeUserData | null;
+  userInformation: UserInformation | null;
 }) => {
-  if (!userData) {
+  if (!userInformation) {
     return (
       <>
         <u>
@@ -35,7 +34,7 @@ export const ProfileInformation = ({
       </>
     );
   }
-  const { email, firstName, lastName, phone, city } = userData;
+  const { email, firstName, lastName, phone, city } = userInformation;
   return (
     <>
       <u>
@@ -46,7 +45,6 @@ export const ProfileInformation = ({
         <InfoRow label="First Name" value={firstName} />
         <InfoRow label="Last Name" value={lastName} />
         <InfoRow label="City" value={city} />
-        {/* You will need to format the string "nnnnnnn" as "nn-nn-nn-n" */}
         <InfoRow label="Phone" value={phone} />
       </div>
     </>

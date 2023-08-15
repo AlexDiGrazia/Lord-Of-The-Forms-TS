@@ -6,8 +6,8 @@ export function isEmailValid(emailAddress: string) {
   return !!emailAddress.match(regex);
 }
 
-export const isGreaterThanTwoCharacters = (str: string) => {
-  return str.length > 2;
+export const isAtLeastTwoCharacters = (str: string) => {
+  return str.length > 1;
 };
 
 export const doesNotContainNumbers = (str: string) => {

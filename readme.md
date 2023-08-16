@@ -47,7 +47,7 @@ To get this project setup, you should:
 
 - [x] Format code with prettier
 - [] State should not be duplicated
-- [] Variables should be named logically
+- [x] Variables should be named logically
 - [] No unnecessary console logs
 - [] No commented out blocks of code (Code comments are fine)
 - [x] Setup a github repository with your submission as the `main` branch, you will submit a link to this for grading (NOT A ZIP FILE)
@@ -123,7 +123,7 @@ Profile Information Component
 - build a `capitalize` function in `transformations.ts` to correctly display a first and last name
 
 - [x] build a `formatPhone` function in `transformations.ts` that will turn "1234567" into "12-34-56-7"
-- [] use `capitalize` and `formatPHone` in the `ProfileInformation` component in order to format things appropriately
+- [x] use `capitalize` and `formatPHone` in the `ProfileInformation` component in order to format things appropriately
 
 Email Validations
 

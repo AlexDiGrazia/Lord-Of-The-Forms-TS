@@ -1,5 +1,5 @@
 import { ChangeEventHandler, Dispatch, SetStateAction, useRef } from "react";
-import { PhoneNumberInput } from "./FunctionalForm";
+import { PhoneNumberInput } from "../types";
 
 export const FunctionalPhoneInput = ({
   phoneNumber,
@@ -28,9 +28,8 @@ export const FunctionalPhoneInput = ({
       const prevRef = refs[index - 1];
       const value =
         new RegExp(/^(?:[0-9]{1,2})?$/).test(e.target.value) && e.target.value;
-      const shouldGoToNextRef =
-        currentMaxLength === value.toString().length; /* && nextRef?.current */
 
+      const shouldGoToNextRef = currentMaxLength === value.toString().length;
       const shouldGoToPrevRef = value.toString().length === 0 && prevRef;
 
       const newState = phoneNumber.map((phoneInput, phoneInputIndex) =>

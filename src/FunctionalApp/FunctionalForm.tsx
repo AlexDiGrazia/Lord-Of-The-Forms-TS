@@ -9,8 +9,7 @@ import {
 } from "../utils/validations";
 import { allCities } from "../utils/all-cities";
 import { FunctionalPhoneInput } from "./FunctionalPhoneInput";
-import { formatPhoneNumber } from "../utils/transformations";
-import { UserInformation } from "../types";
+import { PhoneNumberInput, UserInformation } from "../types";
 import { FunctionalTextInput } from "./FunctionalTextInput";
 
 const firstNameErrorMessage = "First name must be at least 2 characters long";
@@ -18,8 +17,6 @@ const lastNameErrorMessage = "Last name must be at least 2 characters long";
 const emailErrorMessage = "Email is Invalid";
 const cityErrorMessage = "State is Invalid";
 const phoneNumberErrorMessage = "Invalid Phone Number";
-
-export type PhoneNumberInput = [string, string, string, string];
 
 export const FunctionalForm = ({
   setUserInformation,
@@ -44,6 +41,7 @@ export const FunctionalForm = ({
     setLastName("");
     setPhoneNumber(["", "", "", ""]);
     setCity("");
+    setIsSubmitted(false);
   };
 
   const shouldAlertError = () => {
@@ -64,18 +62,20 @@ export const FunctionalForm = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    shouldAlertError() && setIsSubmitted(true);
-    isSubmitted && !shouldAlertError() && setIsSubmitted(false);
-    shouldAlertError() && alert("Bad Inputs");
-    !shouldAlertError() &&
+
+    if (shouldAlertError()) {
+      setIsSubmitted(true);
+      alert("Bad Inputs");
+    } else {
       setUserInformation({
-        email: email,
-        firstName: firstName,
-        lastName: lastName,
-        phone: formatPhoneNumber(phoneNumber),
-        city: city,
+        email,
+        firstName,
+        lastName,
+        phone: phoneNumber.join(""),
+        city,
       });
-    !shouldAlertError() && clearForm();
+      clearForm();
+    }
   };
 
   return (

@@ -1,16 +1,18 @@
-import { ComponentProps } from "react";
+import { Component, ComponentProps, ReactNode } from "react";
 
-export const FunctionalTextInput = ({
-  label,
-  inputProps,
-}: {
+type TextInputProps = {
   label: string;
   inputProps: ComponentProps<"input">;
-}) => {
-  return (
-    <div className="input-wrap">
-      <label>{label}:</label>
-      <input type="text" {...inputProps} />
-    </div>
-  );
 };
+
+export class ClassTextInput extends Component<TextInputProps> {
+  render(): ReactNode {
+    const { label, inputProps } = this.props;
+    return (
+      <div className="input-wrap">
+        <label>{label}:</label>
+        <input type="text" {...inputProps} />
+      </div>
+    );
+  }
+}

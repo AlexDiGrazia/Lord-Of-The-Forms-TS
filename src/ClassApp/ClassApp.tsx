@@ -36,6 +36,3 @@ export class ClassApp extends Component<Record<string, never>, State> {
     );
   }
 }
-
-// const [userInformation, setUserInformation] =
-//   useState<UserInformation | null>(null);

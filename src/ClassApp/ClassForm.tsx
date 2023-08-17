@@ -1,5 +1,9 @@
 import { Component } from "react";
 import { ErrorMessage } from "../ErrorMessage";
+import { allCities } from "../utils/all-cities";
+import { PhoneNumberInput } from "../types";
+import { ClassTextInput } from "./ClassTextInput";
+import { ClassPhoneInput } from "./ClassPhoneInput";
 import {
   doesNotContainNumbers,
   isEmailValid,
@@ -7,10 +11,6 @@ import {
   isPhoneValid,
   isValidCity,
 } from "../utils/validations";
-import { allCities } from "../utils/all-cities";
-import { PhoneNumberInput } from "../types";
-import { FunctionalTextInput } from "./ClassTextInput";
-import { ClassPhoneInput } from "./ClassPhoneInput";
 
 const firstNameErrorMessage = "First name must be at least 2 characters long";
 const lastNameErrorMessage = "Last name must be at least 2 characters long";
@@ -107,7 +107,7 @@ export class ClassForm extends Component<FormProps, FormState> {
         </u>
 
         {/* first name input */}
-        <FunctionalTextInput
+        <ClassTextInput
           label={"First Name"}
           inputProps={{
             placeholder: "Bilbo",
@@ -124,7 +124,7 @@ export class ClassForm extends Component<FormProps, FormState> {
         />
 
         {/* last name input */}
-        <FunctionalTextInput
+        <ClassTextInput
           label={"Last Name"}
           inputProps={{
             placeholder: "Baggins",
@@ -141,7 +141,7 @@ export class ClassForm extends Component<FormProps, FormState> {
         />
 
         {/* Email Input */}
-        <FunctionalTextInput
+        <ClassTextInput
           label={"Email"}
           inputProps={{
             placeholder: "bilbo-baggins@adventurehobbits.net",

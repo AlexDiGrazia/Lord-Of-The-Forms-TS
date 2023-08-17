@@ -55,46 +55,39 @@ export class ClassPhoneInput extends Component<ClassPhoneInputProps> {
   render(): ReactNode {
     const { phoneNumber } = this.props;
 
+    const phoneInputsArray = [];
+    const refArray = [this.ref0, this.ref1, this.ref2, this.ref3];
+
+    for (let i = 0 as 0 | 1 | 2 | 3; i < 4; i++) {
+      phoneInputsArray.push({
+        ref: refArray[i],
+        id: `phone-input-${i + 1}`,
+        placeholder: "55",
+        onChange: this.createOnChangeHandler(i),
+        value: phoneNumber[i],
+      });
+    }
+
+    phoneInputsArray[3].placeholder = "5";
+
     return (
       <>
         <div className="input-wrap">
           <label htmlFor="phone">Phone:</label>
           <div id="phone-input-wrap">
-            <input
-              type="text"
-              ref={this.ref0}
-              id="phone-input-1"
-              placeholder="55"
-              onChange={this.createOnChangeHandler(0)}
-              value={phoneNumber[0]}
-            />
-            -
-            <input
-              type="text"
-              ref={this.ref1}
-              id="phone-input-2"
-              placeholder="55"
-              onChange={this.createOnChangeHandler(1)}
-              value={phoneNumber[1]}
-            />
-            -
-            <input
-              type="text"
-              ref={this.ref2}
-              id="phone-input-3"
-              placeholder="55"
-              onChange={this.createOnChangeHandler(2)}
-              value={phoneNumber[2]}
-            />
-            -
-            <input
-              type="text"
-              ref={this.ref3}
-              id="phone-input-4"
-              placeholder="5"
-              onChange={this.createOnChangeHandler(3)}
-              value={phoneNumber[3]}
-            />
+            {phoneInputsArray.map((obj) => (
+              <>
+                <input
+                  type="text"
+                  ref={obj.ref}
+                  id={obj.id}
+                  placeholder={obj.placeholder}
+                  onChange={obj.onChange}
+                  value={obj.value}
+                />
+                {obj.id !== "phone-input-4" && <>-</>}
+              </>
+            ))}
           </div>
         </div>
       </>

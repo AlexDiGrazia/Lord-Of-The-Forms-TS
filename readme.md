@@ -94,7 +94,7 @@ Phone Number UI
 Phone Input
 
 - [x] Create a `FunctionalPhoneInput` component to clean up code
-- [] Create a `ClassPhoneInput` component to clean up code
+- [x] Create a `ClassPhoneInput` component to clean up code
 - [x] The telephone input should work EXACTLY like on the example site
 - [x] Typing in the max characters on one input should move to the next input
 - [x] Deleting should go to the previous input as necessary
@@ -110,7 +110,7 @@ City Information
 Text Inputs
 
 - [x] Create a `FunctionalTextInput` component that groups the label and the input together
-- [] Create a `ClassTextInput` component to clean up code
+- [x] Create a `ClassTextInput` component to clean up code
 
 Form
 
